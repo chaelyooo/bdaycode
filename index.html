@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Greeting</title>
+  <link rel="shortcut icon" href="ballons.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ffe4f0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+    }
+    .btn-custom {
+      background-color: #ff80ab;
+      border: none;
+      color: white;
+      font-weight: 600;
+    }
+    .btn-custom:hover {
+      background-color: #e0558a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 w-100" style="max-width: 450px;">
+      <h3 class="text-center mb-3 text-pink">Birthday Greeting</h3>
+      <form id="birthdayForm">
+        <div class="mb-3">
+          <label class="form-label">Discord Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter your Discord username" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Message</label>
+          <input type="text" class="form-control" id="message" placeholder="Enter the message" required>
+        </div>
+        <button type="submit" class="btn btn-custom w-100">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal fade" id="codeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <div class="modal-header border-0">
+          <h5 class="modal-title">Code</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <div class="card p-3 mb-4 text-center" style="background-color:#fff0f6; border-radius:15px;">
+            <h5 class="fw-bold text-dark">How?</h5>
+            <p class="mb-1">1. Open <b>Roblox</b> and join in Raise a Shark</p>
+            <p class="mb-1">2. Go to the chat box</p>
+            <p class="mb-1">3. Type exactly: "happy birthday ate chammy"</p>
+            <p class="text-muted small">Make sure all letters are lowercase</p>
+        </div>
+
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-custom" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  const webhookURL = "https://discord.com/api/webhooks/1409193169555423273/MBZZm1_h3TUGcmZmEwrlxZ7bRjzQ7d0-zuTnfpIjf43Li-kjE0IVRAqVRu5y3h993iJw"; // Replace with your actual Discord webhook
+  const mentionUserId = "1345758968357847081";
+
+
+  document.getElementById("birthdayForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const userId = document.getElementById("username").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (message === "Happy Birthday Ate Chammy") {
+        await fetch(webhookURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+            username: "Happy Birthday!",
+            content: `<@${userId}> greets you a happy birthday <@${mentionUserId}> 🎉`
+            })
+        });
+
+      const modal = new bootstrap.Modal(document.getElementById("codeModal"));
+      modal.show();
+    } else {
+      alert("Message must be exactly: Happy Birthday Ate Chammy");
+    }
+  });
+</script>
+</body>
+</html>
